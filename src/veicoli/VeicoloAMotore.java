@@ -1,6 +1,6 @@
 package veicoli;
 
-public class VeicoloAMotore {
+public abstract class VeicoloAMotore {
 	
 	private int annoImmatricolazione;
 	private String marca;
@@ -54,5 +54,7 @@ public class VeicoloAMotore {
 	public void setNumPosto(int numPosto) {
 		this.numPosto = numPosto;
 	}
+	
+	public abstract String toString();
 }
 
