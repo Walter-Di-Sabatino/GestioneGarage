@@ -8,16 +8,40 @@ public class Garage {
 
 	Scanner input = new Scanner(System.in);
 
-	public static VeicoloAMotore[] veicoli = new VeicoloAMotore[15];
-	public static int indice = 0;
-	private int numPostazione = 1000;
+	private static VeicoloAMotore[] veicoli = new VeicoloAMotore[15];
 
-	public int immettiNuovoVeicolo(VeicoloAMotore v) {
-		int scelta;
+	public Garage() {
+		for(int i=0;i<15;i++) {
+			veicoli[i]=null;
+		}
+	}
+
+	public int immettiNuovoVeicolo() {
+		int scelta,posto;
+		boolean control=true;
 		do {
+			control=false;
+			boolean control2=true;
+			do {
+				control2=false;
+				System.out.println("In quale posto lo vuoi inserire(I posti vanno da 1 a 15 compresi)?");
+				posto=input.nextInt();
+					if(veicoli[posto-1]!=null) {
+							System.out.println("Il posto è già occupato, reinseriscilo");
+							control2=true;
+					}
+					else
+						System.out.println("Il posto è libero");
+					
+				
+			}while(control2);
+
+
 			System.out.println("Inserisci tipologia veicolo:");
 			System.out.println("1-Furgone, 2-Automobile, 3-Motocicletta");
 			scelta = input.nextInt();
+
+
 
 			switch(scelta) {
 			case 1:
@@ -31,15 +55,11 @@ public class Garage {
 				input.next();
 				System.out.println("Inserisci cilindrata: ");
 				int cilind = input.nextInt();
-				System.out.println("Inserisci capacit� carico: ");
+				System.out.println("Inserisci capacità carico: ");
 				int cap = input.nextInt();
-				
-				veicoli[indice].setAlimentazione(alimentazione);
-				veicoli[indice].setAnnoImmatricolazione(anno);
-				veicoli[indice].setCilindrata(cilind);
-				veicoli[indice].setMarca(marca);
-				veicoli[indice].setNumPosto(++numPostazione);
-				indice++;
+
+				veicoli[posto-1]=new Furgone(anno,marca,alimentazione, cilind,cap);
+				veicoli[posto-1].setNumPosto(posto);
 				break;
 			case 2:
 				System.out.println("Inserisci marca veicolo: ");
@@ -55,12 +75,8 @@ public class Garage {
 				System.out.println("Inserisci numero porte: ");
 				int num = input.nextInt();
 
-				veicoli[indice].setAlimentazione(alimentazione2);
-				veicoli[indice].setAnnoImmatricolazione(anno2);
-				veicoli[indice].setCilindrata(cilind2);
-				veicoli[indice].setMarca(marca2);
-				veicoli[indice].setNumPosto(++numPostazione);
-				indice++;
+				veicoli[posto-1]=new Automobile(anno2,marca2,alimentazione2, cilind2,num);
+				veicoli[posto-1].setNumPosto(posto);
 				break;
 			case 3:
 				System.out.println("Inserisci marca veicolo: ");
@@ -78,43 +94,60 @@ public class Garage {
 				System.out.println("Inserisci tipologia: ");
 				int tipo = input.nextInt();
 
-				veicoli[indice].setAlimentazione(alimentazione3);
-				veicoli[indice].setAnnoImmatricolazione(anno3);
-				veicoli[indice].setCilindrata(cilind3);
-				veicoli[indice].setMarca(marca3);
-				veicoli[indice].setNumPosto(++numPostazione);
-				indice++;
+				veicoli[posto-1]=new Motocicletta(anno3,marca3,alimentazione3, cilind3,tempi,tipo);
+				veicoli[posto-1].setNumPosto(posto);
 				break;
 			default:
 				System.out.println("Valore immesso errato, riprova");
+				control=true;
 			}
-		}while(scelta != 1 || scelta != 2 || scelta != 3);
 
-		System.out.println("Le verr� assegnata la postazione numero: ");
-		return numPostazione;
+		}while(control);
+
+		System.out.println("Hai assegnato il veicolo alla postazione numero: "+ posto);
+		return posto;
 	}
 
-	public VeicoloAMotore estraiVeicolo(int posto) {
+	public void estraiVeicolo() {
+		int posto=0;
 		do {
 			System.out.println("Inserisci numero posto oppure premi '0' per uscire: ");
 			posto = input.nextInt();
 
-			for(int i = 0; i < veicoli.length; i++) {
-				if(veicoli[i].getNumPosto() == posto) {
-					System.out.println("Hai rimosso: ");
-					return veicoli[i];
-					//System.out.println(veicoli[i].getMarca() + " "+ veicoli[i].getAlimentazione() + " "+ veicoli[i].getAnnoImmatricolazione() + " "+ veicoli[i].getCilindrata());
-				}
+			if(posto!=0) {
+
+				if(veicoli[posto-1]==null)
+					System.out.println("Non puoi estrarre alcun veicolo poichè il posto è libero");
+				else
+					System.out.println("Hai estratto il veicolo :" + veicoli[posto-1].toString()+" che si trovava al posto "+ posto);
 			}
 
 		} while(posto != 0);
-		return null;
 	}
-	
+
 	public void stampaSituazionePosto() {
-		if(veicoli.length < 15)
-			System.out.println("Ci sono ancora posti disponibili, procedi");
-		else
-			System.out.println("Mi dispiace, posti esauriti");
+		boolean situa=true;
+		int[] postDisp=new int[15];
+		int j=0;
+		for(int i=0;i<15;i++)
+			if(veicoli[i]==null) {
+				situa=false;
+				postDisp[j]=i+1;
+				j++;
+			}
+			else {
+				System.out.println("Il posto "+(i+1)+" è occupato da:");
+				System.out.println(veicoli[i].toString());
+			}
+
+		if(situa)
+			System.out.println("Tutti i posti sono occpuati");
+		else {
+			System.out.println("Ci sono ancora posti disponibili");
+			System.out.print("I posti disponibili sono:");
+			for(int i=0;i<15 && !(postDisp[i]==0);i++)
+				System.out.print(postDisp[i]+" ");
+		}
+		System.out.println("");
 	}
 }
