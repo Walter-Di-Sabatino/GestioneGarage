@@ -19,6 +19,6 @@ public class Furgone extends VeicoloAMotore{
 	}
 	
 	public String toString() {
-		return "Furgone" + getMarca() + " " + getAnnoImmatricolazione() + "alimentato a"+ getAlimentazione() + "cilindrata" + getCilindrata() + "con capacit‡ carico pari a " + getCapacitaCarico();
+		return "Furgone " + getMarca() + " " + getAnnoImmatricolazione() + " alimentato a "+ getAlimentazione() + " cilindrata " + getCilindrata() + " con capacit√† carico pari a " + getCapacitaCarico();
 	}
 }
