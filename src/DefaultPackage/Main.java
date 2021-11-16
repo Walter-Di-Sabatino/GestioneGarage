@@ -28,12 +28,10 @@ public class Main {
 				System.out.println("Arrivederci!");
 				return;
 			case 1:
-				garage.immettiNuovoVeicolo(Garage.veicoli[Garage.indice]);
+				garage.immettiNuovoVeicolo();
 				break;
 			case 2:
-				System.out.println("Inserisci numero posto in tuo possesso: ");
-				int numero = input.nextInt();
-				garage.estraiVeicolo(numero);
+				garage.estraiVeicolo();
 				break;
 			case 3:
 				garage.stampaSituazionePosto();
