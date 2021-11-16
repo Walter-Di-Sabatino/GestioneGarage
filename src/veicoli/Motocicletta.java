@@ -29,6 +29,6 @@ public class Motocicletta extends VeicoloAMotore{
 	}
 	
 	public String toString() {
-		return "Motocicletta" + getMarca() + " " + getAnnoImmatricolazione() + "alimentata a"+ getAlimentazione() + "cilindrata" + getCilindrata() + "di tipologia" + getTipologia() + "e di tempi motore pari a " + getTempiMotore();
+		return "Motocicletta " + getMarca() + " " + getAnnoImmatricolazione() + " alimentata a "+ getAlimentazione() + " cilindrata " + getCilindrata() + " di tipologia " + getTipologia() + " e di tempi motore pari a " + getTempiMotore();
 	}
 }
