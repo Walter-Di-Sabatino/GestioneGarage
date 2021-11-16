@@ -19,7 +19,6 @@ public class Automobile extends VeicoloAMotore{
 	}
 	
 	public String toString() {
-		return "Automobile" + getMarca() + " " + getAnnoImmatricolazione() + "alimentato a"+ getAlimentazione() + "cilindrata" + getCilindrata() + "con numero porte pari a " + getNumPorte();
+		return "Automobile" + getMarca() + " " + getAnnoImmatricolazione() + " alimentato a "+ getAlimentazione() + " cilindrata "  + getCilindrata() + " con numero porte pari a " + getNumPorte();
 	}
 }
-
